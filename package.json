@@ -1,0 +1,22 @@
+{
+  "name": "comexchain",
+  "version": "1.0.0",
+  "description": "a blockchain-based platform for International Business document exchange",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "ipfs-http-client": "^27.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://ramna_sidharta@bitbucket.org/ramna_sidharta/comexchain.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/ramna_sidharta/comexchain#readme"
+}
