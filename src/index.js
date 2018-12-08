@@ -1,4 +1,4 @@
-var ipfs = window.IpfsHttpClient('infura.io', '5081');
+const ipfs = require('ipfs-http-client');
 var ipfsHash;
 var arrBuff;
 
@@ -33,21 +33,13 @@ function onSubmit() {
   })
 })
   */
-  var buff = arrayBufferToBuffer(this.arrBuff);
-  ipfs.add(buff, (error, result) => {
+  var fs = require("filereader-stream");
+  file = document.getElementById('doc_file').files[0];
+  ipfs.add(fs.fileReaderStream(file), (error, result) => {
 	if(error) {
 	  console.error(error);
 	  return;
 	}
 	this.ipfsHash = result[0].hash;
   })
-}
-
-function arrayBufferToBuffer(ab) {
-  var buffer = new Buffer(ab.byteLength);
-  var view = new Uint8Array(ab);
-  for (var i = 0; i < buffer.length; ++i) {
-      buffer[i] = view[i];
-  }
-  return buffer;
 }
