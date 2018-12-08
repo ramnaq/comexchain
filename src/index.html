@@ -23,7 +23,7 @@
 						   readonly="readonly" required/>
 		<input type="file" name="doc_file"
 						   id="doc_file"
-						   accept=".p7s, .xml, .pdf"
+						   accept=".p7s, .xml, .pdf, .png, .jpg"
 						   onChange=setFileName()
 						   required />
 		<label name="doc_lbl" id="doc_lbl" for="doc_file" class="select selectlbl">SELECT FILE</label>
@@ -31,6 +31,11 @@
 	</form>
 </body>
 
+<!-- loading the human-readable (not minified) version -->
+<script src="https://unpkg.com/ipfs/dist/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.js"></script>
+
+<script src="https://unpkg.com/ipfs-http-client/dist/index.min.js"></script>
 <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
 <script src="./index.js"></script>
 </html>
