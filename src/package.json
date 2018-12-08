@@ -1,11 +1,12 @@
 {
   "name": "comexchain",
   "version": "1.0.0",
-  "description": "a blockchain-based platform for International Business document exchange",
+  "description": "A blockchain-based platform for International Business document exchange",
   "main": "index.js",
   "dependencies": {
     "express": "^4.16.4",
-    "ipfs-http-client": "^27.1.0"
+    "ipfs-http-client": "^27.1.0",
+    "multer": "^1.4.1"
   },
   "devDependencies": {},
   "scripts": {

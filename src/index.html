@@ -14,7 +14,7 @@
 	<p>This image is stored on IPFS & The Ethereum Blockchain!</p>
  
 	<h3>Upload a file</h3>
-	<form id="verify" method="post" enctype="multipart/form-data">
+	<form id="verify" method="post" enctype="multipart/form-data" action="/">
 	  <div id="doc_file_div" class="filechoose">
 		<input type="text" name="doc_textbox"
 						   id="doc_textbox"
@@ -28,11 +28,14 @@
 						   required />
 		<label name="doc_lbl" id="doc_lbl" for="doc_file" class="select selectlbl">SELECT FILE</label>
 	  </div>
-	  <button onClick="onSubmit()" type="submit" class="btn btn-primary">Submit</button>
+	  <button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 </body>
-<script src="https://unpkg.com/ipfs-http-client@9.0.0/dist/index.js"
-crossorigin="anonymous"></script>
-<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
-<script src="index.js"></script>
+
+  <script>
+	function setFileName() {
+  	  file = document.getElementById('doc_file').files[0];
+	  document.getElementById('doc_textbox').value = file.name;
+	}
+  </script>
 </html>
