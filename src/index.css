@@ -1,0 +1,53 @@
+.filechoose {
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+#filechooseheader, #detchooseheader {
+    padding: 10px;
+    font-size: 14px;
+}
+
+input[type='file'] {
+	display: none;
+}
+
+.file {
+    height: 31px;
+    border: 1px solid #A7A7A7;
+    padding: 5px;
+    width: 67%;
+    font-size: 14px;
+    float: left;
+}
+
+.selectlbl {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #2c66ce;
+    color: #FFF;
+    font-size: 14px;
+    vertical-align: middle;
+    width: 40%;
+}
+
+.selectlbl:hover {
+    background-color: #00004d;
+}
+
+.select {
+    float: right;
+    width: 31%;
+}
+
+.siglbl {
+    display: inline-block;
+    float: right;
+    padding: 5px 10px;
+    border: 1px solid #999999;
+    font-size: 14px;
+    vertical-align: middle;
+    width: 31%;
+    background-color: #cccccc;
+    color: #666666;
+}

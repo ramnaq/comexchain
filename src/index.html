@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Comexchain</title>
+  <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body class="container">
+  <h1>Comexchain</h1>
+	<h3>A blockchain-based platform for International Business documents exchange</h3>
+
+	<h3>Your Image</h3>
+	<p>This image is stored on IPFS & The Ethereum Blockchain!</p>
+ 
+	<h3>Upload a file</h3>
+	<form id="verify" method="post" enctype="multipart/form-data">
+	  <div id="doc_file_div" class="filechoose">
+		<input type="text" name="doc_textbox"
+						   id="doc_textbox"
+						   class="file"
+						   placeholder="Select document..."
+						   readonly="readonly" required/>
+		<input type="file" name="doc_file"
+						   id="doc_file"
+						   accept=".p7s, .xml, .pdf"
+						   onChange=setFileName()
+						   required />
+		<label name="doc_lbl" id="doc_lbl" for="doc_file" class="select selectlbl">SELECT FILE</label>
+	  </div>
+	</form>
+</body>
+
+<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+<script src="./index.js"></script>
+</html>
