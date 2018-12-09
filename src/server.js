@@ -5,9 +5,11 @@ const Tx = require('ethereumjs-tx');  // for creating transactions
 const multer  = require('multer')
 const path = require('path');
 const IPFS = require('ipfs-http-client');
+const LOCALHOST = "http://localhost:8545";
 
-var web3js = new web3(new web3.providers.HttpProvider("http://localhost:8545"));
-var personal = new Personal(Personal.givenProvider || "http://localhost:8545")
+var url = LOCALHOST;
+var web3js = new web3(new web3.providers.HttpProvider(LOCALHOST));
+var personal = new Personal(Personal.givenProvider || LOCALHOST)
 var ipfs = new IPFS({host: 'ipfs.infura.io', port: 5001, protocol: 'https'});
 var upload = multer({ dest: 'uploads/' })
 var app = express();
