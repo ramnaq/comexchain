@@ -10,7 +10,6 @@ function retrieve() {
 }
 
 function displayText() {
-	
 	document.getElementById("text-tran").style.display = "block";
 	document.getElementById("text-ipfs").style.display = "block";
 }
@@ -21,5 +20,13 @@ function submit() {
 	console.log(split);
 	document.getElementById("text-ipfs").innerHTML = "IPFS hash: " + split[0];
 	document.getElementById("text-tran").innerHTML = "Eth hash: " + split[1];
+	makeQRCode(split[0]);
+}
 
+function makeQRCode(hash) {
+  new QRCode(document.getElementById('canvas-div'), 'http://ipfs.io/' + hash);
+	console.log(hash.length)
+	if (hash.length > 2) {
+		document.getElementById('canvas-div').hidden = false;
+	}
 }
