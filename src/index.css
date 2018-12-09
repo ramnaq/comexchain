@@ -51,3 +51,7 @@ input[type='file'] {
     background-color: #cccccc;
     color: #666666;
 }
+
+hr {
+    border-top: 3px solid #eee;
+}

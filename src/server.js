@@ -9,7 +9,6 @@ var app = express();
 var ipfsHash;
 var arrBuff;
 
-
 // viewed at http://localhost:8080
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
@@ -17,14 +16,11 @@ app.get('/', function(req, res) {
 app.use(express.static(__dirname + '/'));
 
 app.post('/', upload.single('doc_file'), function (req, res, next) {
-  // req.file is the `avatar` file
-  // req.body will hold the text fields, if there were any
   console.log(req.file)
   storeOnIPFS(req.file.path);
-})
+});
 
 app.listen(8080);
-
 
 function storeOnIPFS(file_path) {
   fs = require('fs');

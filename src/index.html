@@ -5,14 +5,12 @@
   <title>Comexchain</title>
   <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="index.css">
+  <script src="index.js"></script>
 </head>
 <body class="container">
   <h1>Comexchain</h1>
 	<h3>A blockchain-based platform for International Business documents exchange</h3>
 
-	<h3>Your Image</h3>
-	<p>This image is stored on IPFS & The Ethereum Blockchain!</p>
- 
 	<h3>Upload a file</h3>
 	<form id="verify" method="post" enctype="multipart/form-data" action="/">
 	  <div id="doc_file_div" class="filechoose">
@@ -30,12 +28,19 @@
 	  </div>
 	  <button type="submit" class="btn btn-primary">Submit</button>
 	</form>
-</body>
 
-  <script>
-	function setFileName() {
-  	  file = document.getElementById('doc_file').files[0];
-	  document.getElementById('doc_textbox').value = file.name;
-	}
-  </script>
+	  <hr>
+	
+	  <h3>Your file</h3>
+	  <p>This file is stored on IPFS and Ethereum Blockchain</p>
+
+	  <label for="hash">Hash</label>
+      <input type="text" id="hash">
+
+	  <button class="btn btn-primary" onClick=retrieve()>Retrieve</button>
+
+	  <br><br><br>
+
+	  <img id="img">
+</body>
 </html>
