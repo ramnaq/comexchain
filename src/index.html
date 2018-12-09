@@ -18,7 +18,7 @@
 	<hr>
 
 	<h3>Upload a file</h3>
-	<form id="verify" method="post" enctype="multipart/form-data" action="/">
+	<form id="verify" method="post" enctype="multipart/form-data" action="/" target="hidden_iframe">
 	  <div id="doc_file_div" class="filechoose">
 		<input type="text" name="doc_textbox"
 						   id="doc_textbox"
@@ -32,7 +32,10 @@
 						   required />
 		<label name="doc_lbl" id="doc_lbl" for="doc_file" class="select selectlbl">SELECT FILE</label>
 	  </div>
-	  <button type="submit" class="btn btn-primary">Submit</button>
+	  <button type="submit" onClick=submit();displayText() class="btn btn-primary">Submit</button>
+	  <br><br>
+	  <p id="text-ipfs" style="display: none"></p>
+	  <p id="text-tran" style="display: none"></p>
 	</form>
 
 	  <hr>
@@ -48,6 +51,8 @@
 	  <br><br><br>
 
 	  <img id="img">
+
+	  <iframe name="hidden_iframe" onload=submit() style="display: none"></iframe>
   </div>
 </body>
 </html>

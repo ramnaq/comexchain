@@ -12,6 +12,9 @@ var ipfs = new IPFS({host: 'ipfs.infura.io', port: 5001, protocol: 'https'});
 var upload = multer({ dest: 'uploads/' })
 var app = express();
 
+var hashIPFS;
+var hashTransac;
+
 
 // viewed at http://localhost:8080
 app.get('/', function(req, res) {
@@ -20,12 +23,12 @@ app.get('/', function(req, res) {
 app.use(express.static(__dirname + '/'));
 
 app.post('/', upload.single('doc_file'), function (req, res, next) {
-  storeOnIPFS(req.file.path, storeOnEthereum);
+  storeOnIPFS(req.file.path, res,storeOnEthereum);
 });
 
 app.listen(8080);
 
-function storeOnIPFS(file_path, storeOnEthereum) {
+function storeOnIPFS(file_path, res, storeOnEthereum) {
   fs = require('fs');
   fs.readFile(file_path, function (err, data) {
 	if (err) throw err;
@@ -34,14 +37,15 @@ function storeOnIPFS(file_path, storeOnEthereum) {
 	  if (err) throw err;
 	  var ipfsFileHash = result[0].hash;
 	  console.log("hash: " + ipfsFileHash);
-	  storeOnEthereum(ipfsFileHash);
+	  hashIPFS = ipfsFileHash;
+	  storeOnEthereum(ipfsFileHash, res);
 	});
   });
 }
 
-function storeOnEthereum(data){
-  const ADDRESS = '0x5d5f548953aab7ca0a85d4f2495854d423ecdd0c';
-  const KEYPSWD = '1234';
+function storeOnEthereum(data, res){
+  const ADDRESS = '0xb7b13ea53ca3271e0e34da554e747fd8bea9846d';
+  const KEYPSWD = '123123';
  
   //contract abi is the array that you can get from the ethereum wallet or etherscan
   var contractABI = [
@@ -62,7 +66,7 @@ function storeOnEthereum(data){
 	  "stateMutability": "view",
 	  "type": "function"}
   ];
-  var contractAddress ="0x04f22226002fcae95b731550e40ace470befe3f0";
+  var contractAddress ="0x360ccfeb46fc3f7d9ac81ed38270638c2cebcf0f";
   var contract = new web3js.eth.Contract(contractABI, contractAddress);
   web3js.eth.personal.unlockAccount(ADDRESS, KEYPSWD, 0);
   console.log('ACCOUNT UNLOCKED!');
@@ -70,5 +74,7 @@ function storeOnEthereum(data){
 	  if (err) throw err;
 	  console.log('Transaction commited!');
 	  console.log('Result: ' + JSON.stringify(result));
+	  hashTransac = JSON.stringify(result);
+	  res.send(data + ',' + hashTransac);
   });
 }
