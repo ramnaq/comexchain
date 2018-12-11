@@ -1,4 +1,4 @@
-const express = require('express');  // creating a router
+const express = require('express');  // for creating a router
 const web3 = require('web3');  // interaction with ethereum
 const Personal = require('web3-eth-personal');
 const Tx = require('ethereumjs-tx');  // for creating transactions
@@ -7,11 +7,10 @@ const path = require('path');
 const IPFS = require('ipfs-http-client');
 const LOCALHOST = "http://localhost:8545";
 
-var url = LOCALHOST;
 var web3js = new web3(new web3.providers.HttpProvider(LOCALHOST));
 var personal = new Personal(Personal.givenProvider || LOCALHOST)
 var ipfs = new IPFS({host: 'ipfs.infura.io', port: 5001, protocol: 'https'});
-var upload = multer({ dest: 'uploads/' })
+var upload = multer({ dest: 'uploads/' })  // where the files are stored locally
 var app = express();
 
 var hashIPFS;
@@ -24,33 +23,41 @@ app.get('/', function(req, res) {
 });
 app.use(express.static(__dirname + '/'));
 
+// ran from http://localhost:8080
 app.post('/', upload.single('doc_file'), function (req, res, next) {
-  storeOnIPFS(req.file.path, res,storeOnEthereum);
+  storeOnIPFS(req.file.path, res, storeOnEthereum);
 });
 
 app.listen(8080);
 
+// Stores the file addressed by 'file_path' on IPFS and runs storeOnEthereum
+// function.
+// This function is called when handling a POST request, 'res' is the POST
+// response, which will receive its data in 'storeOnEthereum' function.
 function storeOnIPFS(file_path, res, storeOnEthereum) {
   fs = require('fs');
   fs.readFile(file_path, function (err, data) {
 	if (err) throw err;
-	fbuffer = data;
-	ipfs.add(fbuffer, (err, result) => {
+	fileBuffer = data;
+	ipfs.add(fileBuffer, (err, result) => {
 	  if (err) throw err;
-	  var ipfsFileHash = result[0].hash;
-	  console.log("hash: " + ipfsFileHash);
-	  hashIPFS = ipfsFileHash;
-	  storeOnEthereum(ipfsFileHash, res);
+	  hashIPFS = result[0].hash;
+	  console.log("IPFS hash: " + hashIPFS);
+	  storeOnEthereum(hashIPFS, res);
 	});
   });
 }
 
+// Stores 'data' on Ethereum blockchain and set response data on 'res'
+// This function is called in 'storeOnIPFS()', when handling a POST request, so
+// 'res' is the POST response.
 function storeOnEthereum(data, res){
-  const ADDRESS = '0xb7b13ea53ca3271e0e34da554e747fd8bea9846d';
-  const KEYPSWD = '123123';
+  // account that will be used to commit transactions.
+  const ADDRESS = '0x26330e835742df83dfe17df01e7638a82e2132e2';
+  const KEYPSWD = '1234';
  
   //contract abi is the array that you can get from the ethereum wallet or etherscan
-  var contractABI = [
+  const contractABI = [
 	{
 	  "constant": false,
 	  "inputs": [{"name": "x","type": "string"}],
@@ -68,14 +75,23 @@ function storeOnEthereum(data, res){
 	  "stateMutability": "view",
 	  "type": "function"}
   ];
-  var contractAddress ="0x360ccfeb46fc3f7d9ac81ed38270638c2cebcf0f";
+  
+  // the deployed contract address, obtained from Remix IDE
+  var contractAddress = '0x06cbb540b57b865a40709279303c8b4ebaf06682';
+
+  // the smart contract instance
   var contract = new web3js.eth.Contract(contractABI, contractAddress);
   web3js.eth.personal.unlockAccount(ADDRESS, KEYPSWD, 0);
-  console.log('ACCOUNT UNLOCKED!');
+  console.log("Account Unlocked!");
+
+  // commit a transaction running 'set()', passing 'data' as parameter.
+  // in other words, as 'data' is the hash of the file stored on IPFS, it
+  // will be stored on Ethereum blockchain.
   contract.methods.set(data).send({from: ADDRESS}, function(err, result) {
 	  if (err) throw err;
-	  console.log('Transaction commited!');
-	  console.log('Result: ' + JSON.stringify(result));
+	  console.log("TRANSACTION COMMITED!");
+	  console.log("Result - transaction id: " + JSON.stringify(result));
+
 	  hashTransac = JSON.stringify(result);
 	  res.send(data + ',' + hashTransac);
   });
