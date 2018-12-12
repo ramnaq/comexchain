@@ -5,6 +5,8 @@ A blockchain-based platform for International Business documents exchange.
   - Interplanetary file system storage 
   - Interoperability
 
+![Comexchain](media/screenshot.png)
+
 ## Pre-requires
 Make sure you have the following tools and components before starting to startup the environment to run the prototype:
 * [Node.js](https://nodejs.org/en/)
@@ -52,7 +54,7 @@ Without stop the mining, run on `/src`
 npm i
 npm start
 ```
-Now you can access `http://localhost:8080` on your browser and test the prototype. Upload a file (e.g [`bill-of-lading.jpg`](bill-of-lading.jpg)) and click `Submit`. In some seconds (when the transaction is being mined) you'll be able to see the hash of the file and the hash of the blockchain transaction. The first one can be pasted in the last field of the page, due to retrieve the file stored on [IPFS](https://ipfs.io/).
+Now you can access `http://localhost:8080` on your browser and test the prototype. Upload a file (e.g [`bill-of-lading.jpg`](media/bill-of-lading.jpg)) and click `Submit`. In some seconds (when the transaction is being mined) you'll be able to see the hash of the file and the hash of the blockchain transaction. The first one can be pasted in the last field of the page, due to retrieve the file stored on [IPFS](https://ipfs.io/).
 
 If the file submited was an image, then clicking "Retrieve" you'll be able to see it at the bottom of the web page.
 You can also copy the file hash and check that the file was really stored on IPFS by accessing https://ipfs.io/ipfs/file_hash (changing "file_hash" by the file hash).
